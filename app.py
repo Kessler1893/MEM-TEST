@@ -3,6 +3,7 @@
 from elevenlabs.client import ElevenLabs
 from elevenlabs import play, save
 import pybase64
+import os
 import streamlit as st
 from langchain_core.messages import AIMessage, HumanMessage
 from langchain_community.document_loaders import WebBaseLoader
@@ -114,7 +115,7 @@ if "chat_history" not in st.session_state:
                 unsafe_allow_html=True,
             )
     autoplay_audio("audio.mp3")
-    remove("audio.mp3")
+    os.remove("audio.mp3")
   
 if "vector_store" not in st.session_state:
     st.session_state.vector_store = get_vectorstore_from_url("Syllabi.txt")    
@@ -152,7 +153,7 @@ if user_query is not None and user_query != "":
             )
 
     autoplay_audio("response.mp3")
-    remove("response.mp3")
+    os.remove("response.mp3")
 
 # conversation
 for message in st.session_state.chat_history:
