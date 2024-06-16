@@ -173,7 +173,6 @@ if user_query is not None and user_query != "":
 for message in st.session_state.chat_history:
     if isinstance(message, AIMessage):
         with st.chat_message("AI"):
-            st.write(message.content)
             voice_response = client.generate(
               text = message.content,
               voice = "Rachel",
@@ -182,6 +181,7 @@ for message in st.session_state.chat_history:
             )
             save(voice_response, "response.mp3")
             autoplay_audio("response.mp3")
+            st.write(message.content)
     elif isinstance(message, HumanMessage):
         with st.chat_message("Human"):
             st.write(message.content)
