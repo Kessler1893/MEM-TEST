@@ -107,29 +107,6 @@ if "chat_history" not in st.session_state:
     st.session_state.chat_history = [
         AIMessage(content="Hallo, ich bin der MEM-Bot. Wie kann ich dir weiterhelfen?"),
     ]
-    audio = client.generate(
-        text = "Hallo, ich bin der MEM-Bot. Wie kann ich dir weiterhelfen?",
-        voice = "Rachel",
-        model = "eleven_multilingual_v2",
-        output_format= "mp3_22050_32"
-    )
-    save(audio, "audio.mp3")
-    
-    #def autoplay_audio(file_path: str):
-    #    with open(file_path, "rb") as f:
-    #        data = f.read()
-    #        b64 = pybase64.b64encode(data).decode()
-    #        md = f"""
-    #            <audio controls autoplay="true">
-    #            <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
-    #            </audio>
-    #            """
-    #        st.markdown(
-    #            md,
-    #            unsafe_allow_html=True,
-    #        )
-    autoplay_audio("audio.mp3")
-    os.remove("audio.mp3")
   
 if "vector_store" not in st.session_state:
     st.session_state.vector_store = get_vectorstore_from_url("Syllabi.txt")    
@@ -141,38 +118,11 @@ if user_query is not None and user_query != "":
     st.session_state.chat_history.append(HumanMessage(content=user_query))
     st.session_state.chat_history.append(AIMessage(content=response))
 
-    # generating and saving audio file
-    #voice_response = client.generate(
-    #    text = response,
-    #    voice = "Rachel",
-    #    model = "eleven_multilingual_v2",
-    #    output_format= "mp3_22050_32"
-    #)
-    #save(voice_response, "response.mp3")
-        
-    #text2speech
-
-    #def autoplay_audio(file_path: str):
-    #    with open(file_path, "rb") as f:
-    #        data = f.read()
-    #        b64 = pybase64.b64encode(data).decode()
-    #        md = f"""
-    #            <audio controls autoplay="true">
-    #            <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
-    #            </audio>
-    #            """
-    #       st.markdown(
-    #            md,
-    #            unsafe_allow_html=True,
-    #        )
-
-    #autoplay_audio("response.mp3")
-    #os.remove("response.mp3")
-
 # conversation
 for message in st.session_state.chat_history:
     if isinstance(message, AIMessage):
         with st.chat_message("AI"):
+          #Text 2 Speech
             voice_response = client.generate(
               text = message.content,
               voice = "Rachel",
@@ -181,6 +131,8 @@ for message in st.session_state.chat_history:
             )
             save(voice_response, "response.mp3")
             autoplay_audio("response.mp3")
+          
+          #Text 2 Text
             st.write(message.content)
     elif isinstance(message, HumanMessage):
         with st.chat_message("Human"):
