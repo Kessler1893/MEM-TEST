@@ -79,6 +79,20 @@ def get_response(user_input):
     
     return response['answer']
 
+def autoplay_audio(file_path: str):
+        with open(file_path, "rb") as f:
+            data = f.read()
+            b64 = pybase64.b64encode(data).decode()
+            md = f"""
+                <audio controls autoplay="true">
+                <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
+                </audio>
+                """
+            st.markdown(
+                md,
+                unsafe_allow_html=True,
+            )
+
 # app config
 st.set_page_config(page_title="MEM-Bot", page_icon="🤖")
 st.title("MEM-Bot")
@@ -101,19 +115,19 @@ if "chat_history" not in st.session_state:
     )
     save(audio, "audio.mp3")
     
-    def autoplay_audio(file_path: str):
-        with open(file_path, "rb") as f:
-            data = f.read()
-            b64 = pybase64.b64encode(data).decode()
-            md = f"""
-                <audio controls autoplay="true">
-                <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
-                </audio>
-                """
-            st.markdown(
-                md,
-                unsafe_allow_html=True,
-            )
+    #def autoplay_audio(file_path: str):
+    #    with open(file_path, "rb") as f:
+    #        data = f.read()
+    #        b64 = pybase64.b64encode(data).decode()
+    #        md = f"""
+    #            <audio controls autoplay="true">
+    #            <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
+    #            </audio>
+    #            """
+    #        st.markdown(
+    #            md,
+    #            unsafe_allow_html=True,
+    #        )
     autoplay_audio("audio.mp3")
     os.remove("audio.mp3")
   
@@ -128,38 +142,46 @@ if user_query is not None and user_query != "":
     st.session_state.chat_history.append(AIMessage(content=response))
 
     # generating and saving audio file
-    voice_response = client.generate(
-        text = response,
-        voice = "Rachel",
-        model = "eleven_multilingual_v2",
-        output_format= "mp3_22050_32"
-    )
-    save(voice_response, "response.mp3")
+    #voice_response = client.generate(
+    #    text = response,
+    #    voice = "Rachel",
+    #    model = "eleven_multilingual_v2",
+    #    output_format= "mp3_22050_32"
+    #)
+    #save(voice_response, "response.mp3")
         
     #text2speech
 
-    def autoplay_audio(file_path: str):
-        with open(file_path, "rb") as f:
-            data = f.read()
-            b64 = pybase64.b64encode(data).decode()
-            md = f"""
-                <audio controls autoplay="true">
-                <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
-                </audio>
-                """
-            st.markdown(
-                md,
-                unsafe_allow_html=True,
-            )
+    #def autoplay_audio(file_path: str):
+    #    with open(file_path, "rb") as f:
+    #        data = f.read()
+    #        b64 = pybase64.b64encode(data).decode()
+    #        md = f"""
+    #            <audio controls autoplay="true">
+    #            <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
+    #            </audio>
+    #            """
+    #       st.markdown(
+    #            md,
+    #            unsafe_allow_html=True,
+    #        )
 
-    autoplay_audio("response.mp3")
-    os.remove("response.mp3")
+    #autoplay_audio("response.mp3")
+    #os.remove("response.mp3")
 
 # conversation
 for message in st.session_state.chat_history:
     if isinstance(message, AIMessage):
         with st.chat_message("AI"):
             st.write(message.content)
+            voice_response = client.generate(
+              text = response,
+              voice = "Rachel",
+              model = "eleven_multilingual_v2",
+              output_format= "mp3_22050_32"
+            )
+            save(voice_response, "response.mp3")
+            autoplay_audio("response.mp3")
     elif isinstance(message, HumanMessage):
         with st.chat_message("Human"):
             st.write(message.content)
