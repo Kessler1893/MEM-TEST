@@ -152,7 +152,7 @@ if user_query is not None and user_query != "":
             )
 
     autoplay_audio("response.mp3")
-  remove("response.mp3")
+    remove("response.mp3")
 
 # conversation
 for message in st.session_state.chat_history:
