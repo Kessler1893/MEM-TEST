@@ -3,10 +3,6 @@
 from elevenlabs.client import ElevenLabs
 from elevenlabs import play, save
 import pybase64
-#ab hier neu
-from gtts import gTTS
-from io import BytesIO
-
 import streamlit as st
 from langchain_core.messages import AIMessage, HumanMessage
 from langchain_community.document_loaders import WebBaseLoader
