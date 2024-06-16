@@ -175,7 +175,7 @@ for message in st.session_state.chat_history:
         with st.chat_message("AI"):
             st.write(message.content)
             voice_response = client.generate(
-              text = message,
+              text = message.content,
               voice = "Rachel",
               model = "eleven_multilingual_v2",
               output_format= "mp3_22050_32"
