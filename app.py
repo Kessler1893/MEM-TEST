@@ -59,7 +59,7 @@ def get_conversational_rag_chain(retriever_chain):
     llm = ChatOpenAI()
     
     prompt = ChatPromptTemplate.from_messages([
-      ("system", "Beantworte die Fragen freundlich und zuvorkommend und verwende den bereitgestellten Kontex, falls du die Frage nicht beantworten kannst verweise auf Lisa.Kaiser@hs-pforzheim.de:\n\n{context}"),
+      ("system", "Beantworte die Fragen freundlich und zuvorkommend und verwende den bereitgestellten Kontext, hier Syllabi.txt. Falls du die Frage nicht beantworten kannst verweise auf Lisa.Kaiser@hs-pforzheim.de:\n\n{context}"),
       MessagesPlaceholder(variable_name="chat_history"),
       ("user", "{input}"),
     ])
@@ -95,32 +95,28 @@ def autoplay_audio(file_path: str):
 
 # app config
 st.set_page_config(page_title="MEM-Bot", page_icon="🤖")
-st.title("MEM-Bot")
+st.title("MEM-Bot 📚")
 
 # sidebar
 with st.sidebar:
     #st.logo("logo.svg")
     #st.sidebar.image("logo.svg", width=100)
     st.header("Hochschule Pforzheim - Master Engineering and Management M. Sc.")
+    st.info("Wichtige Links", icon="ℹ️")
     st.link_button("Zur MEM Seite", "https://engineeringpf.hs-pforzheim.de/master/wirtschaftsingenieurwesen/engineering_and_management")
     st.link_button("Mail an Studiengangsassistenz", "mailto:lisa.kaiser@hs-pforzheim.de")
-    st.info('This is a purely informational message', icon="ℹ️")
 
 # session state
-#with st.spinner('Dein KI-Berater macht sich gerade auf den Weg'):
-    #time.sleep(4)
-
-
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = [
-        AIMessage(content="Hallo, ich bin der MEM-Bot. Wie kann ich dir weiterhelfen?"),
+        AIMessage(content="Hallo, ich bin der MEM-Bot🤖. Wie kann ich dir weiterhelfen?"),
     ]
   
 if "vector_store" not in st.session_state:
     st.session_state.vector_store = get_vectorstore_from_url("Syllabi.txt")    
 
     # user input
-user_query = st.chat_input("Type your message here...")
+user_query = st.chat_input("Stelle deine Fragen hier‍ 🎓")
 if user_query is not None and user_query != "":
     response = get_response(user_query)
     st.session_state.chat_history.append(HumanMessage(content=user_query))
