@@ -125,7 +125,7 @@ for message in st.session_state.chat_history:
           #Text 2 Speech
             voice_response = client.generate(
               text = message.content,
-              voice = "Rachel",
+              voice = "PeterMeter",
               model = "eleven_multilingual_v2",
               output_format= "mp3_22050_32"
             )
