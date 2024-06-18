@@ -17,7 +17,7 @@ from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_community.document_loaders import TextLoader
 
 client = ElevenLabs(
-  api_key=""
+  api_key="sk_f716d692b18c5161aaef47ef205e88a413451699970727c1"
 )
 
 load_dotenv()
@@ -99,10 +99,18 @@ st.title("MEM-Bot")
 
 # sidebar
 with st.sidebar:
-    st.header("Settings")
-    website_url = st.text_input("Website URL")
+    st.logo("logo.svg")
+    st.sidebar.image("logo.svg", width=100)
+    st.header("Hochschule Pforzheim - Master Engineering and Management M. Sc.")
+    st.link_button("Zur MEM Seite", "https://engineeringpf.hs-pforzheim.de/master/wirtschaftsingenieurwesen/engineering_and_management")
+    st.link_button("Mail an Studiengangsassistenz", "mailto:lisa.kaiser@hs-pforzheim.de")
+    st.info('This is a purely informational message', icon="ℹ️")
 
 # session state
+with st.spinner('Dein KI-Berater macht sich gerade auf den Weg'):
+    time.sleep(4)
+
+
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = [
         AIMessage(content="Hallo, ich bin der MEM-Bot. Wie kann ich dir weiterhelfen?"),
