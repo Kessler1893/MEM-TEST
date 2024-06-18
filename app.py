@@ -107,8 +107,8 @@ with st.sidebar:
     st.info('This is a purely informational message', icon="ℹ️")
 
 # session state
-with st.spinner('Dein KI-Berater macht sich gerade auf den Weg'):
-    time.sleep(4)
+#with st.spinner('Dein KI-Berater macht sich gerade auf den Weg'):
+    #time.sleep(4)
 
 
 if "chat_history" not in st.session_state:
