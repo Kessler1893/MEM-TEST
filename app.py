@@ -99,8 +99,8 @@ st.title("MEM-Bot")
 
 # sidebar
 with st.sidebar:
-    st.logo("logo.svg")
-    st.sidebar.image("logo.svg", width=100)
+    #st.logo("logo.svg")
+    #st.sidebar.image("logo.svg", width=100)
     st.header("Hochschule Pforzheim - Master Engineering and Management M. Sc.")
     st.link_button("Zur MEM Seite", "https://engineeringpf.hs-pforzheim.de/master/wirtschaftsingenieurwesen/engineering_and_management")
     st.link_button("Mail an Studiengangsassistenz", "mailto:lisa.kaiser@hs-pforzheim.de")
