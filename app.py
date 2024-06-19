@@ -31,7 +31,7 @@ def get_vectorstore_from_url(url):
     #document = loader.load()
     
     # split the document into chunks
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size = 1000000)
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
     document_chunks = text_splitter.split_documents(document)
     
     # create a vectorstore from the chunks
