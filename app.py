@@ -26,9 +26,6 @@ def get_vectorstore_from_url(url):
     # get the text in document form
     loader = TextLoader('Syllabi.txt')
     document = loader.load()
-
-    #loader = WebBaseLoader("https://engineeringpf.hs-pforzheim.de/master/wirtschaftsingenieurwesen/engineering_and_management")
-    #document = loader.load()
     
     # split the document into chunks
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
@@ -104,7 +101,9 @@ with st.sidebar:
     st.header("Hochschule Pforzheim - Master Engineering and Management M. Sc.")
     st.write("")
     st.write("")
-    st.write("")
+    TTS = st.checkbox("Sprachausgabe aktivieren")
+      if TTS:
+        st.info("Sprachausgabe aktiviert", icon="ℹ️")
     st.write("")
     st.write("")
     st.write("")
@@ -158,14 +157,15 @@ for message in st.session_state.chat_history:
     if isinstance(message, AIMessage):
         with st.chat_message("AI"):
           #Text 2 Speech
-            voice_response = client.generate(
-              text = message.content,
-              voice = "PeterMeter",
-              model = "eleven_multilingual_v2",
-              output_format= "mp3_22050_32"
-            )
-            save(voice_response, "response.mp3")
-            autoplay_audio("response.mp3")
+            if TTS:
+              voice_response = client.generate(
+                text = message.content,
+                voice = "PeterMeter",
+                model = "eleven_multilingual_v2",
+                output_format= "mp3_22050_32"
+              )
+              save(voice_response, "response.mp3")
+              autoplay_audio("response.mp3")
           
           #Text 2 Text
             st.write(message.content)
