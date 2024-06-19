@@ -172,7 +172,7 @@ if TTS:
       elif isinstance(message, HumanMessage):
           with st.chat_message("Human"):
               st.write(message.content)
-elif:
+else:
   for message in st.session_state.chat_history:
     if isinstance(message, AIMessage):
         with st.chat_message("AI"):
