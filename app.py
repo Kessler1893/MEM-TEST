@@ -173,7 +173,7 @@ for message in st.session_state.chat_history:
             st.write(message.content)
 
 if TTS:
-  for message in st.session_state:
+  for message in st.session_state.response:
     if isinstance(message, AIMessage):
       with st.chat_message("AI"):
         #Text 2 Speech
