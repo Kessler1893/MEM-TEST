@@ -158,14 +158,14 @@ for message in st.session_state.chat_history:
         with st.chat_message("AI"):
           #Text 2 Speech
             if TTS:
-              voice_response = client.generate(
-                text = message.content,
-                voice = "PeterMeter",
-                model = "eleven_multilingual_v2",
-                output_format= "mp3_22050_32"
-              )
-              save(voice_response, "response.mp3")
-              autoplay_audio("response.mp3")
+                voice_response = client.generate(
+                  text = message.content,
+                  voice = "PeterMeter",
+                  model = "eleven_multilingual_v2",
+                  output_format= "mp3_22050_32"
+                )
+                save(voice_response, "response.mp3")
+                autoplay_audio("response.mp3")
           
           #Text 2 Text
             st.write(message.content)
