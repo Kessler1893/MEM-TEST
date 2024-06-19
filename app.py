@@ -157,7 +157,7 @@ for message in st.session_state.chat_history:
     if isinstance(message, AIMessage):
         with st.chat_message("AI"):
           #Text 2 Speech
-            if TTS:
+            #if TTS:
                 voice_response = client.generate(
                   text = message.content,
                   voice = "PeterMeter",
