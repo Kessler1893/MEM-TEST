@@ -17,7 +17,7 @@ from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_community.document_loaders import TextLoader
 
 client = ElevenLabs(
-  api_key="sk_348505f1ab3de49c73e9d72a4c591be44abf513a54e14796"
+  api_key="sk_7d2bdda4b89545c0bd6da86c9e13c1bb7e88537f825edd65"
 )
 
 load_dotenv()
