@@ -165,7 +165,7 @@ for message in st.session_state.chat_history:
             output_format= "mp3_22050_32"
           )
           save(voice_response, "response.mp3") 
-          autoplay_audio("response.mp3")
+          #autoplay_audio("response.mp3")
          
         #Text 2 Text
         st.write(message.content)
