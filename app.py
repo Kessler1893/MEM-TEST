@@ -151,9 +151,14 @@ if user_query is not None and user_query != "":
     response = get_response(user_query)
     st.session_state.chat_history.append(HumanMessage(content=user_query))
     st.session_state.chat_history.append(AIMessage(content=response))
+    #hier Pointer für letzte Nachricht anhand user _query
+    #Test TTS unter append Befehl hängen
+
+    #letzte Idee TTS als Funktion definieren
 
 # conversation
 for message in st.session_state.chat_history:
+  #Wenn message in chat_history = last message, dann conversation
     if isinstance(message, AIMessage):
       with st.chat_message("AI"):
         if TTS:
