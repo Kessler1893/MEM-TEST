@@ -152,25 +152,25 @@ if user_query is not None and user_query != "":
     st.session_state.chat_history.append(HumanMessage(content=user_query))
     st.session_state.chat_history.append(AIMessage(content=response))
 
-    # conversation
-    for message in st.session_state.chat_history:
-        if isinstance(message, AIMessage):
-          with st.chat_message("AI"):
-            if TTS:
-              #Text 2 Speech
-              voice_response = client.generate(
-                text = message.content,
-                voice = "PeterMeter",
-                model = "eleven_multilingual_v2",
-                output_format= "mp3_22050_32"
-              )
-              save(voice_response, "response.mp3") 
-              autoplay_audio("response.mp3")
-             
-            #Text 2 Text
-            st.write(message.content)
-        elif isinstance(message, HumanMessage):
-            with st.chat_message("Human"):
-              st.write(message.content)
-      
+# conversation
+for message in st.session_state.chat_history:
+    if isinstance(message, AIMessage):
+      with st.chat_message("AI"):
+        if TTS:
+          #Text 2 Speech
+          voice_response = client.generate(
+            text = message.content,
+            voice = "PeterMeter",
+            model = "eleven_multilingual_v2",
+            output_format= "mp3_22050_32"
+          )
+          save(voice_response, "response.mp3") 
+          autoplay_audio("response.mp3")
+         
+        #Text 2 Text
+        st.write(message.content)
+    elif isinstance(message, HumanMessage):
+        with st.chat_message("Human"):
+          st.write(message.content)
+  
   
