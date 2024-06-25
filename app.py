@@ -1,7 +1,8 @@
-# pip install streamlit langchain langchain-openai beautifulsoup4 python-dotenv chromadb elevenlabs pybase64
+# pip install streamlit langchain langchain-openai beautifulsoup4 python-dotenv chromadb elevenlabs pybase64 volume-control
 
 from elevenlabs.client import ElevenLabs
 from elevenlabs import play, save
+import pyvolume 
 import pybase64
 import os
 import streamlit as st
@@ -91,6 +92,10 @@ def autoplay_audio(file_path: str):
                 unsafe_allow_html=True,
             )
 
+# Funktion eines Lautstärkereglers
+def voice_control():
+  pyvolume.custom(percent = st.session_state.volume)
+
 # app config
 st.set_page_config(page_title="MEM-Bot", page_icon="🤖")
 st.title("MEM-Bot 📚")
@@ -110,6 +115,7 @@ with st.sidebar:
     st.selectbox("Wähle eine Stimme:", ("Professor", "Student", "Darth Vader"), key = "voice")
     st.write("")
     st.write("")
+    st.slider("Passe die Lautstärke an:", min_value = 0, max_value = 100, value = 50, step = 2, key = "volume", on_change = voice_control)
     st.write("")
     st.write("")
     st.write("")
