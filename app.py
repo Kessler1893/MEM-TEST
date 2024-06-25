@@ -1,8 +1,9 @@
-# pip install streamlit langchain langchain-openai beautifulsoup4 python-dotenv chromadb elevenlabs
+# pip install streamlit langchain langchain-openai beautifulsoup4 python-dotenv chromadb elevenlabs pyautogui
 
 from elevenlabs.client import ElevenLabs
 from elevenlabs import play, save
 import pybase64
+import pyautogui
 import os
 import streamlit as st
 from langchain_core.messages import AIMessage, HumanMessage
@@ -17,21 +18,21 @@ from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_community.document_loaders import TextLoader
 
 client = ElevenLabs(
-  api_key="sk_7d2bdda4b89545c0bd6da86c9e13c1bb7e88537f825edd65"
+  api_key="sk_6a8c38eb42dd1cf5a8ef0fe7c5881279e2d27474a1c64667"
 )
 
 load_dotenv()
 
 def get_vectorstore_from_url(url):
-    # get the text in document form
+    # Text in Dokument-Form erfassen
     loader = TextLoader('Syllabi.txt')
     document = loader.load()
     
-    # split the document into chunks
+    # Dokument in einzelne Chunks unterteilen
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
     document_chunks = text_splitter.split_documents(document)
     
-    # create a vectorstore from the chunks
+    # Aus den ganzen Chunks einen Vectorstore generieren
     vector_store = Chroma.from_documents(document_chunks, OpenAIEmbeddings())
 
     return vector_store
@@ -76,6 +77,7 @@ def get_response(user_input):
     
     return response['answer']
 
+# Funktion um jede generierte Audio-Datei instant abspielen zu lassen
 def autoplay_audio(file_path: str):
         with open(file_path, "rb") as f:
             data = f.read()
@@ -90,6 +92,12 @@ def autoplay_audio(file_path: str):
                 unsafe_allow_html=True,
             )
 
+# Funktion die Lautstärke anzupassen, indem die Desktop-Audio angepasst wird
+def volume_change():
+    volume = round(st.session_state.volume / 2)
+    pyautogui.press("volumedown", 50)
+    pyautogui.press("volumeup", volume)
+
 # app config
 st.set_page_config(page_title="MEM-Bot", page_icon="🤖")
 st.title("MEM-Bot 📚")
@@ -101,17 +109,19 @@ with st.sidebar:
     st.header("Hochschule Pforzheim - Master Engineering and Management M. Sc.")
     st.write("")
     st.write("")
-    TTS = st.checkbox("Sprachausgabe aktivieren")
+    TTS = st.checkbox("Sprachausgabe aktivieren", key="TTS")
     if TTS:
       st.info("Sprachausgabe aktiviert", icon="ℹ️")
     st.write("")
     st.write("")
     st.write("")
+    st.slider("Lautstärke", min_value = 0, max_value = 100, value = 50, step = 2, key = "volume", on_change = volume_change)
     st.write("")
     st.write("")
     st.write("")
     st.write("")
     st.write("")
+    st.selectbox("Wähle eine Stimme:", ("Professor", "Student", "Darth Vader"), key = "voice")
     st.write("")
     st.write("")
     st.write("")
@@ -136,7 +146,7 @@ with st.sidebar:
     st.link_button("Zur MEM Seite", "https://engineeringpf.hs-pforzheim.de/master/wirtschaftsingenieurwesen/engineering_and_management")
     st.link_button("Mail an Studiengangsassistenz", "mailto:lisa.kaiser@hs-pforzheim.de")
 
-# session state
+# Chat-Historie als Liste erstellen und initiativ befüllen
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = [
         AIMessage(content="Hallo, ich bin der MEM-Bot🤖. Wie kann ich dir weiterhelfen?"),
@@ -145,37 +155,30 @@ if "chat_history" not in st.session_state:
 if "vector_store" not in st.session_state:
     st.session_state.vector_store = get_vectorstore_from_url("Syllabi.txt")    
 
-    # user input
+# Input des Users
 user_query = st.chat_input("Stelle deine Fragen hier‍ 🎓")
 if user_query is not None and user_query != "":
     response = get_response(user_query)
     st.session_state.chat_history.append(HumanMessage(content=user_query))
     st.session_state.chat_history.append(AIMessage(content=response))
-    #hier Pointer für letzte Nachricht anhand user _query
-    #Test TTS unter append Befehl hängen
+    st.session_state.response = response
 
-    #letzte Idee TTS als Funktion definieren
-
-# conversation
+# conversation Text 2 Text
 for message in st.session_state.chat_history:
-  #Wenn message in chat_history = last message, dann conversation
     if isinstance(message, AIMessage):
       with st.chat_message("AI"):
-        if TTS:
-          #Text 2 Speech
-          voice_response = client.generate(
-            text = message.content,
-            voice = "PeterMeter",
-            model = "eleven_multilingual_v2",
-            output_format= "mp3_22050_32"
-          )
-          save(voice_response, "response.mp3") 
-          autoplay_audio("response.mp3")
-         
-        #Text 2 Text
         st.write(message.content)
     elif isinstance(message, HumanMessage):
         with st.chat_message("Human"):
           st.write(message.content)
-  
-  
+
+# Text 2 Speech basierend auf der Auswahl der SelectBox
+if st.session_state.TTS == True:
+    voice_response = client.generate(
+        text = st.session_state.response,
+        voice = st.session_state.voice,
+        model = "eleven_multilingual_v2",
+        output_format= "mp3_22050_32"
+    )
+    save(voice_response, "response.mp3") 
+    autoplay_audio("response.mp3") 
