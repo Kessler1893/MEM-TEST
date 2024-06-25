@@ -1,8 +1,9 @@
-# pip install streamlit langchain langchain-openai beautifulsoup4 python-dotenv chromadb elevenlabs pybase64 volume-control
+# pip install streamlit langchain langchain-openai beautifulsoup4 python-dotenv chromadb elevenlabs pybase64 pycaw
 
 from elevenlabs.client import ElevenLabs
 from elevenlabs import play, save
-import pyvolume 
+from __future__ import print_function
+from pycaw.pycaw import AudioUtilities, ISimpleAudioVolume
 import pybase64
 import os
 import streamlit as st
@@ -94,7 +95,12 @@ def autoplay_audio(file_path: str):
 
 # Funktion eines Lautstärkereglers
 def voice_control():
-  pyvolume.custom(percent = st.session_state.volume)
+    sessions = AudioUtilities.GetAllSessions()
+    for session in sessions:
+        volume = session._ctl.QueryInterface(ISimpleAudioVolume)
+        if session.Process and session.Process.name() == "vlc.exe":
+            print("volume.GetMasterVolume(): %s" % volume.GetMasterVolume())
+            volume.SetMasterVolume(0.6, None)
 
 # app config
 st.set_page_config(page_title="MEM-Bot", page_icon="🤖")
