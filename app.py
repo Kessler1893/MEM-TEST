@@ -1,4 +1,4 @@
-# pip install streamlit langchain langchain-openai beautifulsoup4 python-dotenv chromadb elevenlabs pyautogui
+# pip install streamlit langchain langchain-openai beautifulsoup4 python-dotenv chromadb elevenlabs pyautogui pybase64
 
 from elevenlabs.client import ElevenLabs
 from elevenlabs import play, save
