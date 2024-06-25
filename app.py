@@ -149,6 +149,7 @@ if "chat_history" not in st.session_state:
     st.session_state.chat_history = [
         AIMessage(content="Hallo, ich bin der MEM-Bot🤖. Wie kann ich dir weiterhelfen?"),
     ]
+    st.session_state.response = "Hallo, ich bin der MEM-Bot. Wie kann ich dir weiterhelfen?"
   
 if "vector_store" not in st.session_state:
     st.session_state.vector_store = get_vectorstore_from_url("Syllabi.txt")    
