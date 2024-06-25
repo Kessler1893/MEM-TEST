@@ -1,9 +1,8 @@
-# pip install streamlit langchain langchain-openai beautifulsoup4 python-dotenv chromadb elevenlabs pyautogui pybase64
+# pip install streamlit langchain langchain-openai beautifulsoup4 python-dotenv chromadb elevenlabs pybase64
 
 from elevenlabs.client import ElevenLabs
 from elevenlabs import play, save
 import pybase64
-import pyautogui
 import os
 import streamlit as st
 from langchain_core.messages import AIMessage, HumanMessage
@@ -92,12 +91,6 @@ def autoplay_audio(file_path: str):
                 unsafe_allow_html=True,
             )
 
-# Funktion die Lautstärke anzupassen, indem die Desktop-Audio angepasst wird
-def volume_change():
-    volume = round(st.session_state.volume / 2)
-    pyautogui.press("volumedown", 50)
-    pyautogui.press("volumeup", volume)
-
 # app config
 st.set_page_config(page_title="MEM-Bot", page_icon="🤖")
 st.title("MEM-Bot 📚")
@@ -114,14 +107,13 @@ with st.sidebar:
       st.info("Sprachausgabe aktiviert", icon="ℹ️")
     st.write("")
     st.write("")
-    st.write("")
-    st.slider("Lautstärke", min_value = 0, max_value = 100, value = 50, step = 2, key = "volume", on_change = volume_change)
-    st.write("")
-    st.write("")
-    st.write("")
-    st.write("")
-    st.write("")
     st.selectbox("Wähle eine Stimme:", ("Professor", "Student", "Darth Vader"), key = "voice")
+    st.write("")
+    st.write("")
+    st.write("")
+    st.write("")
+    st.write("")
+    st.write("")
     st.write("")
     st.write("")
     st.write("")
