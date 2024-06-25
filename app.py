@@ -95,12 +95,13 @@ def autoplay_audio(file_path: str):
 
 # Funktion eines Lautstärkereglers
 def voice_control():
+    sound_volume = st.session_state.volume / 100
     sessions = AudioUtilities.GetAllSessions()
     for session in sessions:
         volume = session._ctl.QueryInterface(ISimpleAudioVolume)
         if session.Process and session.Process.name() == "vlc.exe":
             print("volume.GetMasterVolume(): %s" % volume.GetMasterVolume())
-            volume.SetMasterVolume(0.6, None)
+            volume.SetMasterVolume(sound_volume, None)
 
 # app config
 st.set_page_config(page_title="MEM-Bot", page_icon="🤖")
@@ -121,7 +122,7 @@ with st.sidebar:
     st.selectbox("Wähle eine Stimme:", ("Professor", "Student", "Darth Vader"), key = "voice")
     st.write("")
     st.write("")
-    st.slider("Passe die Lautstärke an:", min_value = 0, max_value = 100, value = 50, step = 2, key = "volume", on_change = voice_control)
+    st.slider("Passe die Lautstärke an:", min_value = 0, max_value = 100, value = 50, step = 2, key = "sound_volume", on_change = voice_control)
     st.write("")
     st.write("")
     st.write("")
