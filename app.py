@@ -2,7 +2,6 @@
 
 from elevenlabs.client import ElevenLabs
 from elevenlabs import play, save
-from __future__ import print_function
 from pycaw.pycaw import AudioUtilities, ISimpleAudioVolume
 import pybase64
 import os
