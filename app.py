@@ -56,7 +56,7 @@ def get_conversational_rag_chain(retriever_chain):
     llm = ChatOpenAI(model="gpt-4o")
     
     prompt = ChatPromptTemplate.from_messages([
-      ("system", "Beantworte die Fragen freundlich und zuvorkommend und verwende den bereitgestellten Kontext, hier Syllabi.txt. Falls du die Frage nicht beantworten kannst verweise auf Lisa.Kaiser@hs-pforzheim.de:\n\n{context}"),
+      ("system", "Beantworte die Fragen freundlich und zuvorkommend und verwende den bereitgestellten Kontext, hier Syllabi.txt:\n\n{context}"),
       MessagesPlaceholder(variable_name="chat_history"),
       ("user", "{input}"),
     ])
@@ -118,10 +118,6 @@ with st.sidebar:
     reset = st.button("Reset")
     if reset:
         reset_chat()
-    st.write("")
-    st.write("")
-    st.write("")
-    st.write("")
     st.write("")
     st.write("")
     st.write("")
