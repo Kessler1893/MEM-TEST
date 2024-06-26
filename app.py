@@ -96,7 +96,7 @@ def reset_chat():
     st.session_state.chat_history = [
         AIMessage(content="Hallo, ich bin der MEM-Bot🤖. Wie kann ich dir weiterhelfen?"),
     ]
-    response = "Hallo, ich bin der MEM-Bot. Wie kann ich dir weiterhelfen?"   
+    st.session_state.response = "Hallo, ich bin der MEM-Bot. Wie kann ich dir weiterhelfen?"   
 
 # app config
 st.set_page_config(page_title="MEM-Bot", page_icon="🤖")
