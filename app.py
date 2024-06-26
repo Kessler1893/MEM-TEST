@@ -37,7 +37,7 @@ def get_vectorstore_from_url(url):
     return vector_store
 
 def get_context_retriever_chain(vector_store):
-    llm = ChatOpenAI(model="gpt-4o", temperature=0)
+    llm = ChatOpenAI(model_name="gpt-4")
     
     retriever = vector_store.as_retriever()
     
@@ -53,7 +53,7 @@ def get_context_retriever_chain(vector_store):
     
 def get_conversational_rag_chain(retriever_chain): 
     
-    llm = ChatOpenAI(model="gpt-4o", temperature=0)
+    llm = ChatOpenAI(model_name="gpt-4")
     
     prompt = ChatPromptTemplate.from_messages([
       ("system", "Beantworte die Fragen freundlich und zuvorkommend und verwende den bereitgestellten Kontext, hier Syllabi.txt. Falls du die Frage nicht beantworten kannst verweise auf Lisa.Kaiser@hs-pforzheim.de:\n\n{context}"),
