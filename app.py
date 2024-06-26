@@ -117,7 +117,7 @@ with st.sidebar:
     st.selectbox("Wähle eine Stimme:", ("Professor", "Student", "Darth Vader"), key = "voice")
     st.write("")
     st.write("")
-    st.button("Setze die Chatbox zurück", on_click = reset_chat())
+    st.button("Reset", on_click = reset_chat())
     st.write("")
     st.write("")
     st.write("")
