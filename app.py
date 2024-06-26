@@ -32,12 +32,12 @@ def get_vectorstore_from_url(url):
     document_chunks = text_splitter.split_documents(document)
     
     # Aus den ganzen Chunks einen Vectorstore generieren
-    vector_store = Chroma.from_documents(document_chunks, OpenAIEmbeddings(model_name="gpt-4"))
+    vector_store = Chroma.from_documents(document_chunks, OpenAIEmbeddings())
 
     return vector_store
 
 def get_context_retriever_chain(vector_store):
-    llm = ChatOpenAI(model_name="gpt-4")
+    llm = ChatOpenAI()
     
     retriever = vector_store.as_retriever()
     
@@ -53,7 +53,7 @@ def get_context_retriever_chain(vector_store):
     
 def get_conversational_rag_chain(retriever_chain): 
     
-    llm = ChatOpenAI(model_name="gpt-4")
+    llm = ChatOpenAI()
     
     prompt = ChatPromptTemplate.from_messages([
       ("system", "Beantworte die Fragen freundlich und zuvorkommend und verwende den bereitgestellten Kontext, hier Syllabi.txt. Falls du die Frage nicht beantworten kannst verweise auf Lisa.Kaiser@hs-pforzheim.de:\n\n{context}"),
