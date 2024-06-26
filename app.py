@@ -141,9 +141,9 @@ with st.sidebar:
 # Chat-Historie als Liste erstellen und initiativ befüllen
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = [
-        AIMessage(content="Hallo, ich bin der MEM-Bot🤖. Wie kann ich dir weiterhelfen?"),
+        AIMessage(content="Hallo, ich bin der MEM-Bot🤖. Wie kann ich Ihnen weiterhelfen?"),
     ]
-    st.session_state.response = "Hallo, ich bin der MEM-Bot. Wie kann ich dir weiterhelfen?"
+    st.session_state.response = "Hallo, ich bin der MEM-Bot. Wie kann ich Ihnen weiterhelfen?"
 
 # Buttons, welche häufig gestellte Fragen beantworten
 col1, col2, col3, col4 = st.columns(4)
