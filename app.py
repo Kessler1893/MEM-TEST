@@ -91,6 +91,13 @@ def autoplay_audio(file_path: str):
                 unsafe_allow_html=True,
             )
 
+# Funktion um den Inhalt der Chatbot zurücksetzen zu können
+def reset_chat():
+    st.session_state.chat_history = [
+        AIMessage(content="Hallo, ich bin der MEM-Bot🤖. Wie kann ich dir weiterhelfen?"),
+    ]
+    response = "Hallo, ich bin der MEM-Bot. Wie kann ich dir weiterhelfen?"
+
 # app config
 st.set_page_config(page_title="MEM-Bot", page_icon="🤖")
 st.title("MEM-Bot 📚")
@@ -110,6 +117,7 @@ with st.sidebar:
     st.selectbox("Wähle eine Stimme:", ("Professor", "Student", "Darth Vader"), key = "voice")
     st.write("")
     st.write("")
+    st.button("Setze die Chatbox zurück", on_change = reset_chat())
     st.write("")
     st.write("")
     st.write("")
