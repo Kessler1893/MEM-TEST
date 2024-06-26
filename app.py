@@ -24,7 +24,7 @@ load_dotenv()
 
 def get_vectorstore_from_url(url):
     # Text in Dokument-Form erfassen
-    loader = TextLoader("Syllabi.txt")
+    loader = TextLoader('Syllabi.txt')
     document = loader.load()
     
     # Dokument in einzelne Chunks unterteilen
@@ -130,10 +130,6 @@ with st.sidebar:
     st.write("")
     st.write("")
     st.write("")
-    st.write("")
-    st.write("")
-    st.write("")
-    st.write("")
     st.info("Wichtige Links", icon="ℹ️")
     st.link_button("Zur MEM Seite", "https://engineeringpf.hs-pforzheim.de/master/wirtschaftsingenieurwesen/engineering_and_management")
     st.link_button("Mail an Studiengangsassistenz", "mailto:lisa.kaiser@hs-pforzheim.de")
@@ -174,4 +170,4 @@ if st.session_state.TTS == True:
         output_format= "mp3_22050_32"
     )
     save(voice_response, "response.mp3") 
-    autoplay_audio("response.mp3") 
+    autoplay_audio("response.mp3")
