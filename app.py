@@ -96,7 +96,7 @@ def reset_chat():
     st.session_state.chat_history = [
         AIMessage(content="Hallo, ich bin der MEM-Bot🤖. Wie kann ich dir weiterhelfen?"),
     ]
-    st.session_state.response = "Hallo, ich bin der MEM-Bot. Wie kann ich dir weiterhelfen?"
+    response = "Hallo, ich bin der MEM-Bot. Wie kann ich dir weiterhelfen?"
 
 # app config
 st.set_page_config(page_title="MEM-Bot", page_icon="🤖")
@@ -152,7 +152,7 @@ if "chat_history" not in st.session_state:
         AIMessage(content="Hallo, ich bin der MEM-Bot🤖. Wie kann ich dir weiterhelfen?"),
     ]
     st.session_state.response = "Hallo, ich bin der MEM-Bot. Wie kann ich dir weiterhelfen?"
-
+  
 if "vector_store" not in st.session_state:
     st.session_state.vector_store = get_vectorstore_from_url("Syllabi.txt")    
 
@@ -162,27 +162,6 @@ if user_query is not None and user_query != "":
     response = get_response(user_query)
     st.session_state.chat_history.append(HumanMessage(content=user_query))
     st.session_state.chat_history.append(AIMessage(content=response))
-    st.session_state.response = response
-
-# Anregungen für mögliche Fragen
-col1, col2, col3, col4 = st.columns(4)
-button_kontakt = col1.button("Kontakt", key = "kontakt")
-button_voraussetzung = col2.button("Voraussetzungen", key = "voraussetzungen")
-button_aboutme = col3.button("Über mich", key = "aboutme")
-
-if button_kontakt:
-    response = "Für weitere Informationen, senden Sie bitte eine E-Mail an: mem@hs-pforzheim.de"
-    st.session_state.chat_history.append(AIMessage(response))
-    st.session_state.response = response
-
-if button_voraussetzung:
-    response = "Die Zugangsvoraussetzungen für die Teilnahme am Bewerbungsverfahren für den Studiengang Master Engineering and Management sind ein wirtschaftsingenieurwissenschaftlicher Bachelorabschluss mit einer Abschlussnote von mindestens 2,5 (gut)."
-    st.session_state.chat_history.append(AIMessage(response))
-    st.session_state.response = response
-
-if button_aboutme:
-    response = "Ich bin dein persönlicher Studiengangsberater! Stelle mir beliebige Fragen zum Studiengang Master Engineering and Management."
-    st.session_state.chat_history.append(AIMessage(response))
     st.session_state.response = response
 
 # conversation Text 2 Text
