@@ -44,7 +44,7 @@ def get_context_retriever_chain(vector_store):
     prompt = ChatPromptTemplate.from_messages([
       MessagesPlaceholder(variable_name="chat_history"),
       ("user", "{input}"),
-      ("user", "Du bist ein KI-Studiengangsberater, welcher möglichen Studenten bei Fragen zum Studiengang Master Engineering and Management beantworten soll. Solltest du keine Antwort parat haben, verweise auf die Ansprechpersonen Lisa Kaiser und Ansgar Kühn.")
+      ("user", "Du bist ein KI-Studiengangsberater, welcher möglichen Studenten bei Fragen zum Studiengang Master Engineering and Management beantworten soll. Solltest du keine Antwort parat haben, verweise auf die Ansprechpersonen Lisa Kaiser und Ansgar Kühn. Sieze stets den User.")
     ])
     
     retriever_chain = create_history_aware_retriever(llm, retriever, prompt)
@@ -93,8 +93,8 @@ def autoplay_audio(file_path: str):
 
 # Funktion den Chatverlauf zurückzusetzen
 def reset_chat():
-    st.session_state.chat_history = [AIMessage(content="Hallo, ich bin der MEM-Bot🤖. Wie kann ich dir weiterhelfen?")]
-    st.session_state.response = "Hallo, ich bin der MEM-Bot. Wie kann ich dir weiterhelfen?"
+    st.session_state.chat_history = [AIMessage(content="Hallo, ich bin der MEM-Bot🤖. Wie kann ich Ihnen weiterhelfen?")]
+    st.session_state.response = "Hallo, ich bin der MEM-Bot. Wie kann ich Ihnen weiterhelfen?"
 
 # app config
 st.set_page_config(page_title="MEM-Bot", page_icon="🤖")
