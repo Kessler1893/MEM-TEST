@@ -148,7 +148,20 @@ if "chat_history" not in st.session_state:
         AIMessage(content="Hallo, ich bin der MEM-Bot🤖. Wie kann ich dir weiterhelfen?"),
     ]
     st.session_state.response = "Hallo, ich bin der MEM-Bot. Wie kann ich dir weiterhelfen?"
-  
+
+# Buttons, welche häufig gestellte Fragen beantworten
+col1, col2, col3, col4 = st.columns(4)
+if col1.button("Kontakt"):
+    st.session_state.chat_history.append(AIMessage(content="Bei weiteren Fragen, sende gerne eine E-Mail an: mem@hs-pforzheim.de"))
+    st.session_state.response = "Bei weiteren Fragen, sende gerne eine E-Mail an: mem@hs-pforzheim.de"
+if col2.button("Voraussetzungen"):
+    st.session_state.chat_history.append(AIMessage(content="Um zum Bewerbungsverfahren des Studiengangs Master Engineering and Management zugelassen zu werden musst du einen wirtschaftsingenieurwissenschaftlichen Bachelorabschluss mit einer Mindestnote von 2,5 (gut) vorweisen können."))
+    st.session_state.response = "Um zum Bewerbungsverfahren des Studiengangs Master Engineering and Management zugelassen zu werden musst du einen wirtschaftsingenieurwissenschaftlichen Bachelorabschluss mit einer Mindestnote von 2,5 (gut) vorweisen können."
+if col3.button("Über mich"):
+    st.session_state.chat_history.append(AIMessage(content="Ich bin der MEM-Bot, dein persönlicher Studiengangsberater. Frag mich gerne alles was du wissen willst."))
+    st.session_state.response = "Ich bin der MEM-Bot, dein persönlicher Studiengangsberater. Frag mich gerne alles was du wissen willst."
+
+
 if "vector_store" not in st.session_state:
     st.session_state.vector_store = get_vectorstore_from_url("Syllabi.txt")    
 
