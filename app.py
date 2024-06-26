@@ -32,7 +32,7 @@ def get_vectorstore_from_url(url):
     document_chunks = text_splitter.split_documents(document)
     
     # Aus den ganzen Chunks einen Vectorstore generieren
-    vector_store = Chroma.from_documents(document_chunks, OpenAIEmbeddings())
+    vector_store = Chroma.from_documents(document_chunks, OpenAIEmbeddings(model_name="gpt-4"))
 
     return vector_store
 
